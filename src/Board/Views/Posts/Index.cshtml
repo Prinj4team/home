@@ -1,119 +1,76 @@
 @model IEnumerable<Board.Data.Post>
+
 @{
     ViewData["Title"] = "Index";
 }
-<style>
-    .hot {
-        color: red;
-        font-size: 130%;
 
-    }
-    .forr{
-        font-size: 140%;
-    }
-</style>
 <h2>Index</h2>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<div class="row">
-    @foreach (var item in Model)
-    {
-        @if (item.Important == true)
-        {
-           
-            <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                <span class="hot">Wajno!</span><br />
-                @*@Html.DisplayFor(modelItem => item.BoardId)*@
-                @foreach (var tag in item.Tags)
-                    {
-                    <span class="forr">
-                        @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
-                </span>
-                }<br /><br />
-                <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
-                <b>Date:</b>
-                @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
-                <span> - </span>
-                @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
-                <br /><br />
-                @if (item.Text.Length < 30)
-                {
-                    @Html.DisplayFor(modelItem => item.Text)
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.Text)
-
-                }
-
-                <br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BoardId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateBegin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeaderText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Important)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoardId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateBegin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeaderText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Important)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.key">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
-                <br />
-
-                </div></div>
-            </div>
-        }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tags:
+            </td>
+    @foreach (var tag in item.Tags)
+    {
+        <td>
+            @Html.DisplayFor(modelItem => tag.TagName)
+        </td>
     }
-    </div>
-    @*@Html.DisplayNameFor(model => model.BoardId)
-
-        @Html.DisplayNameFor(model => model.DateBegin)
-
-        @Html.DisplayNameFor(model => model.DateEnd)
-
-        @Html.DisplayNameFor(model => model.HeaderText)
-
-        @Html.DisplayNameFor(model => model.Important)
-
-        @Html.DisplayNameFor(model => model.Text)*@
-    <br />
-    <div class="row">
-        @foreach (var item in Model)
-        {
-                    @if (item.Important == false)
-                    {
-                        <div class="col-sm-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    @*@Html.DisplayFor(modelItem => item.BoardId)*@
-                                    @foreach (var tag in item.Tags)
-                    {
-                                        <span class="forr">
-                                            @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
-                                        </span>
-                                    }</div>
-                                <div class="panel-body">
-                                        <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
-                                        <b>Date:</b>
-                                        @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
-                                        <span> - </span>
-                                        @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
-                                        <br /><br />
-                                        @if (item.Text.Length < 30)
-                                        {
-                                            @Html.DisplayFor(modelItem => item.Text)
-                                        }
-                                        else
-                                        {
-                                            @Html.DisplayFor(modelItem => item.Text)
-
-                                        }
-
-                                        <br />
-                                        <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
-                                        <a asp-action="Details" asp-route-id="@item.key">Details</a> |
-                                        <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
-                                        <br />
-
-
-                                    </div>
-                                </div>
-                        </div>
-                    }
-        }
-                            </div>
+        </tr>
+}
+    </tbody>
+</table>
