@@ -51,6 +51,14 @@ namespace Board.Controllers
                 boards.Add(new SelectListItem { Value = c.BoardId.ToString(), Text = c.BoardId });
             }
             ViewBag.boards = boards;
+
+            List<SelectListItem> tags = new List<SelectListItem>();
+            foreach (var c in _context.Tags.ToList())
+            {
+                tags.Add(new SelectListItem { Value = c.BoardId.ToString(), Text = c.BoardId });
+            }
+            ViewBag.tags = tags;
+
             return View();
         }
 

@@ -23,5 +23,9 @@ namespace Board.Data
 
         public string History { get; set; }
 
+        public int Latitude { get; set; }
+
+        public int Longitude { get; set; }
+
     }
 }

@@ -30,6 +30,8 @@ namespace Board.Data.Migrations
                     FinishDate = table.Column<DateTime>(nullable: false),
                     Firm = table.Column<string>(nullable: true),
                     History = table.Column<string>(nullable: true),
+                    Latitude = table.Column<int>(nullable: false),
+                    Longitude = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Town = table.Column<string>(nullable: true)
                 },

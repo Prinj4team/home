@@ -39,6 +39,10 @@ namespace Board.Data.Migrations
 
                     b.Property<string>("History");
 
+                    b.Property<int>("Latitude");
+
+                    b.Property<int>("Longitude");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Town");

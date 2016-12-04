@@ -8,7 +8,7 @@ using Board.Data;
 namespace Board.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161130135518_migration1")]
+    [Migration("20161203144438_migration1")]
     partial class migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,10 @@ namespace Board.Data.Migrations
                     b.Property<string>("Firm");
 
                     b.Property<string>("History");
+
+                    b.Property<int>("Latitude");
+
+                    b.Property<int>("Longitude");
 
                     b.Property<string>("Name");
 
