@@ -27,14 +27,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Posts" asp-action="Index" class="navbar-brand">Posts</a>
+                <a asp-controller="Posts" asp-action="Index" class="navbar-brand">Объявления</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-controller="Ranks" asp-action="Index">Ranks</a></li>
-                    <li><a asp-controller="Boards" asp-action="Index">Boards</a></li>
-                    <li><a asp-controller="Graduates" asp-action="Index">Graduates</a></li>
-                    <li><a asp-controller="Tags" asp-action="Index">Tags</a></li>
+                    <li><a asp-controller="Ranks" asp-action="Index">Рейтинг</a></li>
+                    <li><a asp-controller="Boards" asp-action="Index">Типы досок</a></li>
+                    <li><a asp-controller="Graduates" asp-action="Index">Выпускники</a></li>
+                    <li><a asp-controller="Tags" asp-action="Index">Тэги</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

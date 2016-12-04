@@ -1,6 +1,6 @@
-@model IEnumerable<Board.Data.Post>
+﻿@model IEnumerable<Board.Data.Post>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Doska obyavleniy";
 }
 <style>
     .hot {
@@ -12,7 +12,7 @@
         font-size: 140%;
     }
 </style>
-<h2>Index</h2>
+<h2>Доска объявлений</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -23,40 +23,43 @@
         {
 
             <div class="col-sm-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <span class="hot">Wajno!</span><br />
-                        @*@Html.DisplayFor(modelItem => item.BoardId)*@
-                        @foreach (var tag in item.Tags)
+                <span class="hot">Важно!</span>
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+    @*@Html.DisplayFor(modelItem => item.BoardId)*@
+    @foreach (var tag in item.Tags)
                     {
-                            <span class="forr">
-                                @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
-                            </span>
-                        }<br /><br />
-                        <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
-                        <b>Date:</b>
-                        @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
-                        <span> - </span>
-                        @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
-                        <br /><br />
-                        @if (item.Text.Length < 30)
-                        {
-                            @Html.DisplayFor(modelItem => item.Text)
-                        }
-                        else
-                        {
-                            @Html.DisplayFor(modelItem => item.Text)
+        <span class="forr">
+            @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
+        </span>
+    }
+</div>
 
-                        }
+                            <div class="panel-body">
+                            <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
+                            <b>Date:</b>
+                            @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
+                            <span> - </span>
+                            @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
+                            <br /><br />
+                            @if (item.Text.Length < 30)
+                            {
+                                @Html.DisplayFor(modelItem => item.Text)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Text)
 
-                        <br />
-                        <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.key">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
-                        <br />
+                            }
 
+                            <br />
+                            <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.key">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
+                            <br />
+
+                        </div>
                     </div>
-                </div>
             </div>
         }
     }
@@ -79,7 +82,7 @@
         @if (item.Important == false)
         {
             <div class="col-sm-4">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         @*@Html.DisplayFor(modelItem => item.BoardId)*@
                         @foreach (var tag in item.Tags)
