@@ -73,22 +73,42 @@ namespace Board.Controllers
         {
             if (ModelState.IsValid)
             {
-                var list = ModelState["Tags"];
-                var ar = list.RawValue as string[];
-
                 List<Tag> allTags = _context.Tags.ToListAsync().Result;
-
-                foreach (var tagname in ar)
+                var list = ModelState["Tags"];
+                if (list != null && list.RawValue != null)
                 {
-                    foreach(var tag in allTags)
+                    var ar = list.RawValue as string[];
+                    if (ar != null)
                     {
-                        if(tagname == tag.TagName && tag.BoardId == post.BoardId)
+                        foreach (var tagname in ar)
                         {
-                            post.Tags.Add(tag);
-                            break;
+                            foreach (var tag in allTags)
+                            {
+                                if (tagname == tag.TagName && tag.BoardId == post.BoardId)
+                                {
+                                    post.Tags.Add(tag);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var str = list.RawValue as string;
+                        if (str != null)
+                        {
+                            foreach (var tag in allTags)
+                            {
+                                if (str == tag.TagName && tag.BoardId == post.BoardId)
+                                {
+                                    post.Tags.Add(tag);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
+                
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
