@@ -8,6 +8,10 @@ namespace Board.Data
 {
     public class Post
     {
+        public Post()
+        {
+            Tags = new List<Tag>();
+        }
         [Key]
         public Int32 key { get; set; }
         [Required]

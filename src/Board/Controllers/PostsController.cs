@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Board.Data;
+using static Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Board.Controllers
 {
@@ -22,7 +24,7 @@ namespace Board.Controllers
         public async Task<IActionResult> Index()
         {
             
-            return View(await _context.Posts.ToListAsync());
+            return View(await _context.Posts.Include(m => m.Tags).ToListAsync());
         }
 
         // GET: Posts/Details/5
@@ -55,7 +57,7 @@ namespace Board.Controllers
             List<SelectListItem> tags = new List<SelectListItem>();
             foreach (var c in _context.Tags.ToList())
             {
-                tags.Add(new SelectListItem { Value = c.BoardId.ToString(), Text = c.BoardId });
+                tags.Add(new SelectListItem { Value = c.TagName, Text = c.TagName });
             }
             ViewBag.tags = tags;
 
@@ -67,10 +69,26 @@ namespace Board.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("key,BoardId,DateBegin,DateEnd,HeaderText,Important,Text")] Post post)
+        public async Task<IActionResult> Create([Bind("key,BoardId,DateBegin,DateEnd,HeaderText,Important,Text,Tags")] Post post)
         {
             if (ModelState.IsValid)
             {
+                var list = ModelState["Tags"];
+                var ar = list.RawValue as string[];
+
+                List<Tag> allTags = _context.Tags.ToListAsync().Result;
+
+                foreach (var tagname in ar)
+                {
+                    foreach(var tag in allTags)
+                    {
+                        if(tagname == tag.TagName && tag.BoardId == post.BoardId)
+                        {
+                            post.Tags.Add(tag);
+                            break;
+                        }
+                    }
+                }
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");

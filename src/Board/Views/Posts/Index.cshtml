@@ -60,6 +60,17 @@
                 <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
             </td>
         </tr>
+        <tr>
+            <td>
+                Tags:
+            </td>
+    @foreach (var tag in item.Tags)
+    {
+        <td>
+            @Html.DisplayFor(modelItem => tag.TagName)
+        </td>
+    }
+        </tr>
 }
     </tbody>
 </table>
