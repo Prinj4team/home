@@ -1,124 +1,101 @@
 ﻿@model IEnumerable<Board.Data.Post>
 @{
-    ViewData["Title"] = "Doska obyavleniy";
+    ViewData["Title"] = "Доска объявлений";
 }
 <style>
     .hot {
         color: red;
-        font-size: 130%;
+        font-size: 120%;
     }
 
     .forr {
-        font-size: 140%;
+        font-size: 130%;
+    }
+    .for_board{
+        font-size: 75%;
+    }
+    .for_buttons{
+        font-size: 95%;
+        padding: 4px 8px;
     }
 </style>
 <h2>Доска объявлений</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<div class="row">
-    @foreach (var item in Model)
-    {
-        @if (item.Important == true)
+<div class="for_board">
+    <div class="row">
+        @foreach (var item in Model)
         {
+            @if (item.Important == true)
+            {
 
-            <div class="col-sm-4">
-                <span class="hot">Важно!</span>
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-    @*@Html.DisplayFor(modelItem => item.BoardId)*@
-    @foreach (var tag in item.Tags)
+                <div class="col-sm-2">
+                    <span class="hot">Важно!</span>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            @foreach (var tag in item.Tags)
                     {
-        <span class="forr">
-            @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
-        </span>
-    }
-</div>
-
-                            <div class="panel-body">
+                                <span class="forr">
+                                    @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
+                                </span>
+                            }
+                        </div>
+                        <div class="panel-body">
                             <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
-                            <b>Date:</b>
                             @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
                             <span> - </span>
                             @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
-                            <br /><br />
-                            @if (item.Text.Length < 30)
-                            {
-                                @Html.DisplayFor(modelItem => item.Text)
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(modelItem => item.Text)
-
-                            }
-
+                            <br /><a asp-action="Details" asp-route-id="@item.key" class="btn btn-warning btn-lg for_buttons">Читать объявление</a>
                             <br />
-                            <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.key">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
-                            <br />
-
+                            <a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
+                            <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>
                         </div>
                     </div>
-            </div>
+                </div>
+            }
         }
-    }
-</div>
-@*@Html.DisplayNameFor(model => model.BoardId)
+    </div>
+    @*@Html.DisplayNameFor(model => model.BoardId)
 
-    @Html.DisplayNameFor(model => model.DateBegin)
+        @Html.DisplayNameFor(model => model.DateBegin)
 
-    @Html.DisplayNameFor(model => model.DateEnd)
+        @Html.DisplayNameFor(model => model.DateEnd)
 
-    @Html.DisplayNameFor(model => model.HeaderText)
+        @Html.DisplayNameFor(model => model.HeaderText)
 
-    @Html.DisplayNameFor(model => model.Important)
+        @Html.DisplayNameFor(model => model.Important)
 
-    @Html.DisplayNameFor(model => model.Text)*@
-<br />
-<div class="row">
-    @foreach (var item in Model)
-    {
-        @if (item.Important == false)
+        @Html.DisplayNameFor(model => model.Text)*@
+    <br />
+    <div class="row">
+        @foreach (var item in Model)
         {
-            <div class="col-sm-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        @*@Html.DisplayFor(modelItem => item.BoardId)*@
-                        @foreach (var tag in item.Tags)
+            @if (item.Important == false)
+            {
+                <div class="col-sm-2">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            @foreach (var tag in item.Tags)
                     {
-                            <span class="forr">
-                                @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
-                            </span>
-                        }
-                    </div>
-                    <div class="panel-body">
-                        <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
-                        <b>Date:</b>
-                        @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
-                        <span> - </span>
-                        @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
-                        <br /><br />
-                        @if (item.Text.Length < 30)
-                        {
-                            @Html.DisplayFor(modelItem => item.Text)
-                        }
-                        else
-                        {
-                            @Html.DisplayFor(modelItem => item.Text)
-
-                        }
-
-                        <br />
-                        <a asp-action="Edit" asp-route-id="@item.key">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.key">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.key">Delete</a>
-                        <br />
-
-
+                                <span class="forr">
+                                    @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
+                                </span>
+                            }
+                        </div>
+                        <div class="panel-body">
+                            <b>@Html.DisplayFor(modelItem => item.HeaderText)</b> <br />
+                            @Html.DisplayFor(modelItem => item.DateBegin.Day).@Html.DisplayFor(modelItem => item.DateBegin.Month).@Html.DisplayFor(modelItem => item.DateBegin.Year)
+                            <span> - </span>
+                            @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
+                            <br /><a asp-action="Details" asp-route-id="@item.key" class="btn btn-primary btn-lg for_buttons">Читать объявление</a>
+                            <br />
+                            <a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
+                            <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
-    }
+    </div>
 </div>
