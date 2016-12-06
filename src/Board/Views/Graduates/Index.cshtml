@@ -71,14 +71,7 @@
     </tbody>
 </table>*@
 
-@*<script async defer 
-    type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ&callback=initMap"></script>
-<script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=true" type="text/javascript"></script>*@
 
-@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtawcZ7AJmyiyke83_JmfbQbSbdyxxeCc&callback=initMap"></script>
-    <script src="http://maps.googlepis.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ" type="text/javascript"></script>
-    <script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=false" type="text/javascript"></script>*@
 @*<script type="text/javascript" src="~/js/markerclusterer"></script>*@
 @*markerClusterer.clearMarkers();*@
 
@@ -147,21 +140,9 @@
  
         // Встраиваем гугл-карты в элемент на странице и получаем объект карты
         var map = new google.maps.Map(document.getElementById("canvas"), mapOptions);
-
-        // Настраиваем красный маркер, который будет использоваться для центральной точки
-        /*-----------------------------------------------------------------------------
-        var myLatlng = new google.maps.LatLng(46.11513, 17.40234);
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title: 'Выпускники'
-        });
-
-       // Берем для маркера иконку с сайта google
-       // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
         marker.setIcon('Images/star1.png')
 
-        *///--------------------------------------------------------------------------------------------
+       ///--------------------------------------------------------------------------------------------
        // var markers = []; var i = 0;
         //// Получаем данные
 
@@ -181,7 +162,7 @@
                 // Берем для этих маркеров синие иконки с сайта google
                 marker.setIcon('Images/star1.png')
 
-              //  markers.push(marker);
+                //  markers.push(marker);
 
                 // Для каждого объекта добавляем доп. информацию, выводимую в отдельном окне
                 var infowindow = new google.maps.InfoWindow({
@@ -197,11 +178,8 @@
                     infowindow.open(map, marker);
                 });
 
-              
             })
         });
-
-        
 
     }
     </script>
