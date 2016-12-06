@@ -72,7 +72,6 @@ namespace Board.Controllers
                 key = 3,
                 Town = "Аргентина - Санта-Роса",
                 Latitude = -64.16016,
-
                 Longitude = -38.22524,
                 Name = "Николай Басков",
 
