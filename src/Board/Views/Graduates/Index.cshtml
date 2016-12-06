@@ -103,59 +103,46 @@
 <!--Устанавливаем секцию scripts, которая затем будет рендериться на мастер-странице -->
 @section scripts {
     <script type="text/javascript">
+        var markersData = [];
+       
+      
         
-
-    /*    $.getJSON('@Url.Action("GetData", "Graduates")', function (data) {
-         
-            // Проходим по всем данным и устанавливаем для них маркеры
-     /*       $.each(data, function (i, item) {
-
-                markersData.push({
-
-                    address: item.Town,
-                    lat: item.Longitude,
-                    lng: item.Latitude,
-                    name: item.Name
-                });
-              
-             })
+        markersData.push(
+           {
+               address: "Канада - Альберта",
+               lat: 56.39376,
+               lng: -115.77393,
+               name: "Петр Птрович"
+           });
+       markersData.push({
+           
+            address: "США - Айова",
+            lat: 42.72028,
+            lng: -92.17529,
+            name: "Иван Иванов"
+             
         });
-        */
-     var    markersData = [
-         {
-             
-             address: "Канада - Альберта",
-             lat: 56.39376,
-             lng: -115.77393,
-             name: "Альберт Энштэйн"
-         },
-         {
-           
-             address: "США - Айова",
-             lat: 42.72028,
-                 lng: -92.17529,
-             name: "Альберт Энштэйн"
-             
-         },
-         {
-             address: "Аргентина - Санта-Роса",
-             lat: -38.22524,
-             lng: -64.16016,
-             name: "Альберт Энштэйн"
+        markersData.push( {
+            address: "Аргентина - Санта-Роса",
+            lat: -38.22524,
+            lng: -64.16016,
+            name: "Александ Александрович"
 
            
-         },
-         {
-             address: "Австралия - Порт Хэдленд",
-             lat: -20.40288,
-             lng: 119.08082,
-             name: "Альберт Энштэйн"
+        });
+        markersData.push( {
+            address: "Австралия - Порт Хэдленд",
+            lat: -20.40288,
+            lng: 119.08082,
+            name: "Альберт Энштэйн"
                
-         }
-        ];
+        });
+     
+     
+
+
         var map, infoWindow;
-
-
+        
         $(document).ready(function () { // Ждем полной загрузки страницы, после этого запускаем GetMap()
         GetMap();
     });
@@ -164,8 +151,23 @@
     // Функция загрузки
         function GetMap() {
 
-           
+       /*    $.getJSON('@Url.Action("GetData", "Graduates")', function (data) {
 
+                // Проходим по всем данным и устанавливаем для них маркеры
+            /*    $.each(data, function (i, item) {
+                    
+                    markersData.push({
+                    address: item.Town, 
+                    lat: item.Longitude, 
+                    lng: item.Latitude, 
+                    name: item.Name 
+                }); 
+                   
+                
+                })
+            });*/
+            
+           
             // Координаты центра на карте. Широта: 56.2928515, Долгота: 43.7866641
         var centerLatLng = new google.maps.LatLng(25.18813, 4.39453);
 
