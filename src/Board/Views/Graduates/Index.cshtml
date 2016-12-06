@@ -71,18 +71,15 @@
     </tbody>
 </table>*@
 
-<script async defer 
+@*<script async defer 
+    type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ&callback=initMap"></script>
+<script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=true" type="text/javascript"></script>*@
 
-@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ&callback=initMap"></script>
-<script src="http://maps.googlepis.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ" type="text/javascript"></script>
-<script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=true" type="text/javascript"></script>
-<script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=false" type="text/javascript"></script>*@
-
+@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtawcZ7AJmyiyke83_JmfbQbSbdyxxeCc&callback=initMap"></script>
+    <script src="http://maps.googlepis.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ" type="text/javascript"></script>
+    <script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=false" type="text/javascript"></script>*@
 @*<script type="text/javascript" src="~/js/markerclusterer"></script>*@
-
-     
-
 @*markerClusterer.clearMarkers();*@
 
 <style>
@@ -101,6 +98,10 @@
         margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
     }
 </style>
+
+
+
+
 
 
 
@@ -163,6 +164,7 @@
         *///--------------------------------------------------------------------------------------------
        // var markers = []; var i = 0;
         //// Получаем данные
+
         $.getJSON('@Url.Action("GetData", "Graduates")', function (data) {
          
             // Проходим по всем данным и устанавливаем для них маркеры
@@ -192,15 +194,10 @@
                 google.maps.event.addListener(marker, 'click', function () {
                    // ge.setBalloon(null);
                     //infoWindow.setContent(html); 
-                   
-                   
                     infowindow.open(map, marker);
                 });
 
-                
-
-             
-
+              
             })
         });
 
@@ -208,4 +205,11 @@
 
     }
     </script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ&callback=initMap">
+</script>
+
+
+
 }

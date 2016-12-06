@@ -54,6 +54,7 @@ namespace Board.Controllers
                 Name = "¬иктор якубович",
                
             });
+
             stations.Add(new Graduate()
             {
                 BoardId = "Finf",
