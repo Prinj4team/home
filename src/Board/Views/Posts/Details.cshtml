@@ -1,54 +1,29 @@
-@model Board.Data.Post
+﻿@model Board.Data.Post
 
 @{
     ViewData["Title"] = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BoardId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BoardId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateBegin)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateBegin)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateEnd)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateEnd)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HeaderText)
-        </dt>
-        <dd>
+<style>
+    .main-text{
+        font-size:200%;
+        background-color:white;
+    }
+    .qr{
+        text-align:right;
+    }
+</style>
+<br />
+<div class="main-text">
+            @Html.DisplayFor(model => model.DateBegin.Day).@Html.DisplayFor(model => model.DateBegin.Month).@Html.DisplayFor(model => model.DateBegin.Year)
+        <span> - </span>
+            @Html.DisplayFor(model => model.DateEnd.Day).@Html.DisplayFor(model => model.DateEnd.Month).@Html.DisplayFor(model => model.DateEnd.Year)
+        <p></p>
             @Html.DisplayFor(model => model.HeaderText)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Important)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Important)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-        <dd>
+        <p></p>
             @Html.DisplayFor(model => model.Text)
-        </dd>
-    </dl>
+    <p class="qr"><img src="~/images/qr-code.gif"/></p>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.key">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.key" class="btn btn-default">Редактировать</a>
+    <a asp-action="Index" class="btn btn-default">Назад</a>
 </div>
