@@ -12,6 +12,7 @@ namespace Board.Data
         {
             Tags = new List<Tag>();
         }
+
         [Key]
         public Int32 key { get; set; }
         [Required]

@@ -1,12 +1,13 @@
-@model IEnumerable<Board.Data.Graduate>
+﻿@model IEnumerable<Board.Data.Graduate>
+
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Карта выпускников";
 }
 
-<h2>Index</h2>
+<h2>Карта выпускников</h2>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
@@ -68,4 +69,143 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+
+<script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ&callback=initMap"></script>
+
+@*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ&callback=initMap"></script>
+<script src="http://maps.googlepis.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=true" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ/js?sensor=false" type="text/javascript"></script>*@
+
+@*<script type="text/javascript" src="~/js/markerclusterer"></script>*@
+
+     
+
+@*markerClusterer.clearMarkers();*@
+
+<style>
+    
+    .stationInfo {
+        height: 150px;
+        width: 250px;
+    }
+    .leftimg {
+        float: left; /* Выравнивание по левому краю */
+        margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+    }
+
+    .rightimg {
+        float: right; /* Выравнивание по правому краю  */
+        margin: 7px 0 7px 7px; /* Отступы вокруг картинки */
+    }
+</style>
+
+
+
+<div id="canvas" style="height: 450px; width:1200px;"></div>
+
+<!--Устанавливаем секцию scripts, которая затем будет рендериться на мастер-странице -->
+@section scripts {
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        GetMap();
+    });
+
+   
+
+    // Функция загрузки
+    function GetMap() {
+ 
+
+        google.maps.visualRefresh = true;
+        // установка основных координат
+        var sent = new google.maps.LatLng(25.18813, 4.39453);
+
+        // Установка общих параметров отображения карты, как масштаб, центральная точка и тип карты
+       var mapOptions = {
+            zoom:2,
+            center: sent,
+            disableDefaultUI: false,//будет ли отключен интерфейс карты (все последующие элементы).
+            scrollwheel: true,//будет ли изменяться зум карты колесиком мыши (по-умолчанию - true).
+            zoomControl: true,//будет ли выведен элемент управления масштабированием.
+            zoomControlOptions: {//настройки элемента управления масштабированием. 
+                style: google.maps.ZoomControlStyle.LARGE,//Подобные настройки могут быть у всех элементов 
+                position: google.maps.ControlPosition.TOP_LEFT//управления на карте. Подробнее о этих настройках - ниже.
+            },
+            panControl: false,//будет ли выведен элемент управления панорамированием.
+            mapTypeControl: false,//будет ли выведен элемент управления типом карты.
+            scaleControl: false,//будет ли выведен элемент управления масштабом.
+            streetViewControl: false,//будет ли выведен элемент управления street view.
+            overviewMapControl: false,//будет ли выведен элемент управления обзорной картой.
+
+            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        };
+ 
+        // Встраиваем гугл-карты в элемент на странице и получаем объект карты
+        var map = new google.maps.Map(document.getElementById("canvas"), mapOptions);
+
+        // Настраиваем красный маркер, который будет использоваться для центральной точки
+        /*-----------------------------------------------------------------------------
+        var myLatlng = new google.maps.LatLng(46.11513, 17.40234);
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Выпускники'
+        });
+
+       // Берем для маркера иконку с сайта google
+       // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+        marker.setIcon('Images/star1.png')
+
+        *///--------------------------------------------------------------------------------------------
+       // var markers = []; var i = 0;
+        //// Получаем данные
+        $.getJSON('@Url.Action("GetData", "Graduates")', function (data) {
+         
+            // Проходим по всем данным и устанавливаем для них маркеры
+            $.each(data, function (i, item) {
+               
+                var marker = new google.maps.Marker({
+                    'position': new google.maps.LatLng(item.Longitude, item.Latitude),
+                    'map': map,
+                    'title': item.Town,
+                    'name': item.Name
+                });
+                i++;
+              
+                // Берем для этих маркеров синие иконки с сайта google
+                marker.setIcon('Images/star1.png')
+
+              //  markers.push(marker);
+
+                // Для каждого объекта добавляем доп. информацию, выводимую в отдельном окне
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<div class='stationInfo'><p><img src=" + "Images/andrew.png" + " class=" + "rightimg" + "> <h3> " + item.Town + "</h3><div><h4>Имя: "
+                        + item.Name + "</h4></div><div><h4> " + "</h4></p></div></div>"
+                });
+                
+
+                // обработчик нажатия на маркер объекта
+                google.maps.event.addListener(marker, 'click', function () {
+                   // ge.setBalloon(null);
+                    //infoWindow.setContent(html); 
+                   
+                   
+                    infowindow.open(map, marker);
+                });
+
+                
+
+             
+
+            })
+        });
+
+        
+
+    }
+    </script>
+}

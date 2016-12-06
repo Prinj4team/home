@@ -17,6 +17,69 @@ namespace Board.Controllers
         {
             _context = context;    
         }
+        //-----------------------------------------------------------------------------------------------------
+        public JsonResult GetData()
+        {
+            // создадим список данных
+            List<Graduate> stations = new List<Graduate>();
+            stations.Add(new Graduate()
+            {
+                BoardId = "Finf",
+                key = 1,
+                Town = "Канада - Альберта",
+                Latitude = -115.77393,
+                
+                Longitude = 56.39376,
+                Name = "Альберт Энштэйн",
+               
+            });
+            stations.Add(new Graduate()
+            {
+                BoardId = "Finf",
+                key = 2,
+                Town = "США - Айова",
+                Latitude = -92.17529,
+                Longitude = 42.72028,
+                Name = "Никола Тесла",
+               
+            }); 
+            stations.Add(new Graduate()
+            {
+                BoardId = "Finf",
+                key = 3,
+                Town = "Австралия - Порт Хэдленд",
+                Latitude = 119.08081,
+               
+                Longitude =-20.40288,
+                Name = "Виктор Якубович",
+               
+            });
+            stations.Add(new Graduate()
+            {
+                BoardId = "Finf",
+                key = 3,
+                Town = "Австралия - Порт Хэдленд",
+                Latitude = 119.08082,
+
+                Longitude = -20.40288,
+                Name = "Виктор Якубович",
+
+            });
+            stations.Add(new Graduate()
+            {
+                BoardId = "Finf",
+                key = 3,
+                Town = "Аргентина - Санта-Роса",
+                Latitude = -64.16016,
+
+                Longitude = -38.22524,
+                Name = "Николай Басков",
+
+            });
+
+            return Json(stations);  //, JsonRequestBehavior.AllowGet
+        }
+        //------------------------------------------------------------------------------------------------
 
         // GET: Graduates
         public async Task<IActionResult> Index()
