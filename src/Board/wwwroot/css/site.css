@@ -1,7 +1,9 @@
 ﻿body {
     padding-top: 10px !important;
     padding-bottom: 20px;
-    background-color:mintcream;
+    background:url(../images/bck.png);
+    background-attachment:fixed;
+    background-size: 100%; /* Современные браузеры */
 }
 
 /* Wrapping element */

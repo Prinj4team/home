@@ -16,6 +16,23 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    <style>
+        
+        .navbar{
+            height:80px !important;
+        }
+        .navbar-inverse {
+            background-color:transparent !important;
+            border-color: transparent !important;
+        }
+        .fix_pad{
+            padding-left:10px;
+            padding-right:10px;
+        }
+        .title{
+            padding-right: 50px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-bottom">
@@ -27,23 +44,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-controller="Posts" asp-action="Index" class="navbar-brand">Объявления</a>
+                
+                <a asp-controller="Posts" asp-action="Index" class="navbar-brand fix_pad"><img src="~/images/home.jpg" height="50" /></a>
+                
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-controller="Ranks" asp-action="Index">Рейтинг</a></li>
-                    <li><a asp-controller="Boards" asp-action="Index">Типы досок</a></li>
-                    <li><a asp-controller="Graduates" asp-action="Index">Выпускники</a></li>
-                    <li><a asp-controller="Tags" asp-action="Index">Тэги</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+    <ul class="nav navbar-nav fix_pad">
+
+        <li class="fix_pad"><a asp-controller="Ranks" asp-action="Index"><img src="~/images/reuting.jpg" height="50" /></a></li>
+        <li class="fix_pad"><a asp-controller="Graduates" asp-action="Index"><img src="~/images/map.jpg" height="50" /></a></li>
+        <li class="fix_pad"><a><img src="~/images/ruchange.jpg" height="50" /></a></li>
+    </ul>
+   @await Html.PartialAsync("_LoginPartial")
+<a asp-controller="Boards" asp-action="Index">Типы досок</a>
+<a asp-controller="Tags" asp-action="Index">Тэги</a><br />
+</div>
         </div>
     </div>
     <div class="container body-content">
+    <img src="~/images/logo.jpg" height="70" class="title" />
+    <img src="~/images/title.jpg" height="70" />
         @RenderBody()
         <hr />
         <footer>
+            
         </footer>
     </div>
 
