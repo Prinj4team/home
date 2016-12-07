@@ -99,55 +99,70 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgF3cMOgs8h2VIQczDmNNsVnWeNeSQZsQ"></script>
 
 <div id="map" class="map" style="height: 450px; width:100%;"></div>
+  </script>
 
+<script src="~/js/markerclusterer.js"></script>
 <!--Устанавливаем секцию scripts, которая затем будет рендериться на мастер-странице -->
 @section scripts {
+
     <script type="text/javascript">
         var markersData = [];
-       
-      
-        
+        var markers=[];
+
+        markersData.push(
+          {
+
+              address: "Канада - Альберта",
+              firm: "DVix",
+              lat: 57.39376,
+              lng: -110.77393,
+              name: "Петр Птрович"
+          });
         markersData.push(
            {
                address: "Канада - Альберта",
+               firm: "DVix",
                lat: 56.39376,
                lng: -115.77393,
                name: "Петр Птрович"
            });
        markersData.push({
-           
-            address: "США - Айова",
+
+           address: "США - Айова",
+           firm: "DVix",
             lat: 42.72028,
             lng: -92.17529,
             name: "Иван Иванов"
-             
+
         });
         markersData.push( {
             address: "Аргентина - Санта-Роса",
+            firm: "DVix",
             lat: -38.22524,
             lng: -64.16016,
             name: "Александ Александрович"
 
-           
+
         });
         markersData.push( {
             address: "Австралия - Порт Хэдленд",
+            firm: "DVix",
             lat: -20.40288,
             lng: 119.08082,
             name: "Альберт Энштэйн"
-               
+
         });
-     
-     
+
+
 
 
         var map, infoWindow;
-        
+
         $(document).ready(function () { // Ждем полной загрузки страницы, после этого запускаем GetMap()
         GetMap();
     });
-    
-       
+
+
     // Функция загрузки
         function GetMap() {
 
@@ -155,19 +170,19 @@
 
                 // Проходим по всем данным и устанавливаем для них маркеры
             /*    $.each(data, function (i, item) {
-                    
+
                     markersData.push({
-                    address: item.Town, 
-                    lat: item.Longitude, 
-                    lng: item.Latitude, 
-                    name: item.Name 
-                }); 
-                   
-                
+                    address: item.Town,
+                    lat: item.Longitude,
+                    lng: item.Latitude,
+                    name: item.Name
+                });
+
+
                 })
             });*/
-            
-           
+
+
             // Координаты центра на карте. Широта: 56.2928515, Долгота: 43.7866641
         var centerLatLng = new google.maps.LatLng(25.18813, 4.39453);
 
@@ -198,33 +213,46 @@
                 var latLng = new google.maps.LatLng(markersData[i].lat, markersData[i].lng);
                 var name = markersData[i].name;
                 var address = markersData[i].address;
-
+                var firm = markersData[i].firm;
                 // Добавляем маркер с информационным окном
-                addMarker(latLng, name, address);
+                addMarker(latLng, name, address, firm);
                 // Расширяем границы нашей видимой области, добавив координаты нашего текущего маркера
                 bounds.extend(latLng);
             }
+
+         
+            var markerCluster = new MarkerClusterer(map, markers,
+         {imagePath: 'images/m'});
+
         // Автоматически масштабируем карту так, чтобы все маркеры были в видимой области карты
             map.fitBounds(bounds);
         }
 
-    function addMarker(latLng, name, address) {
+
+
+
+    function addMarker(latLng, name, address, firm) {
         var marker = new google.maps.Marker({
             position: latLng,
             map: map,
             title: name
         });
-        marker.setIcon('Images/star1.png');
+        
+
+
+
+        marker.setIcon('images/star.png');
         // Отслеживаем клик по нашему маркеру
+        markers.push(marker);//--------------------------------------------------------------------------------------------------
+
         google.maps.event.addListener(marker, "click", function () {
 
             // contentString - это переменная в которой хранится содержимое информационного окна.
             var contentString = "<div class='stationInfo'><p><img src=" + "Images/andrew.png" + " class=" + "rightimg" + "> <h3> " + address + "</h3><div><h4>Имя: "
-                        + name + "</h4></div><div><h4> " + "</h4></p></div></div>";//'<div class="infowindow">' + '<h3>' + name + '</h3>' + '<p>' + address + '</p>' +  '</div>';
+                        + name + "  Фирма: "+firm+ "</h4></div><div><h4> " + "</h4></p></div></div>";//'<div class="infowindow">' + '<h3>' + name + '</h3>' + '<p>' + address + '</p>' +  '</div>';
 
             // Меняем содержимое информационного окна
             infoWindow.setContent(contentString);
-
             // Показываем информационное окно
             infoWindow.open(map, marker);
 
