@@ -21,9 +21,10 @@
             @Html.DisplayFor(model => model.HeaderText)
         <p></p>
             @Html.DisplayFor(model => model.Text)
-    <p class="qr"><img src="~/images/qr-code.gif"/></p>
+        <p></p>
+    <p class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=@Url.Action("","",null, "http")@Url.Action().Substring(1)"/></p>
+    
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.key" class="btn btn-default">Редактировать</a>
-    <a asp-action="Index" class="btn btn-default">Назад</a>
 </div>
