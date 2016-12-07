@@ -20,7 +20,9 @@
         <p></p>
             @Html.DisplayFor(model => model.HeaderText)
         <p></p>
-    <p class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=@Url.Action("","",null, "http")@Url.Action().Substring(1)"/></p>
+            @Html.DisplayFor(model => model.Text)
+        <p></p>
+    <p class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=@Url.Action("","",null, "http")@Url.Action().Substring(1)"/></p>
     
 </div>
 <div>
