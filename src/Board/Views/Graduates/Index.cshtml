@@ -152,10 +152,70 @@
             name: "Альберт Энштэйн"
 
         });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: 61.60639,
+            lng: 92.10937,
+            name: "Имя Отчество"
 
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: 65.60639,
+            lng: 90.10937,
+            name: "Имя Отчество"
 
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: 59.60639,
+            lng: 93.10937,
+            name: "Имя Отчество"
 
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: 44.60639,
+            lng: 89.10937,
+            name: "Имя Отчество"
 
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: 40.60639,
+            lng: 94.10937,
+            name: "Имя Отчество"
+
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: -26.43122,
+            lng: 123.75,
+            name: "Имя Отчество"
+
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: -31.43122,
+            lng: 122.75,
+            name: "Имя Отчество"
+
+        });
+        markersData.push( {
+            address: "Страна - Город",
+            firm: "DVix",
+            lat: -31.43122,
+            lng: 124.75,
+            name: "Имя Отчество"
+
+        });
         var map, infoWindow;
 
         $(document).ready(function () { // Ждем полной загрузки страницы, после этого запускаем GetMap()
@@ -249,8 +309,8 @@
 
             // contentString - это переменная в которой хранится содержимое информационного окна.
             var contentString = "<div class='stationInfo'><p><img src=" + "Images/andrew.png" + " class=" + "rightimg" + "> <h3> " + address + "</h3><div><h4>Имя: "
-                        + name + "  Фирма: "+firm+ "</h4></div><div><h4> " + "</h4></p></div></div>";//'<div class="infowindow">' + '<h3>' + name + '</h3>' + '<p>' + address + '</p>' +  '</div>';
-
+                        + name + "</h4><h4>  Фирма: "+firm+ "</h4></div><div><h4> " + "</h4></p></div></div>";//'<div class="infowindow">' + '<h3>' + name + '</h3>' + '<p>' + address + '</p>' +  '</div>';
+          
             // Меняем содержимое информационного окна
             infoWindow.setContent(contentString);
             // Показываем информационное окно
