@@ -11,6 +11,7 @@ namespace Board.Data
         public Post()
         {
             Tags = new List<Tag>();
+            key = ++keygen;
         }
 
         [Key]
@@ -29,6 +30,8 @@ namespace Board.Data
         public string HeaderText { get; set; }
 
         public List<Tag> Tags {get; set;}
+
+        static Int32 keygen = 0;
         
     }
 }

@@ -8,7 +8,7 @@ using Board.Data;
 namespace Board.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161203144438_migration1")]
+    [Migration("20170104105246_migration1")]
     partial class migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,20 @@ namespace Board.Data.Migrations
                     b.ToTable("Boards");
                 });
 
+            modelBuilder.Entity("Board.Data.File", b =>
+                {
+                    b.Property<int>("key")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("URL");
+
+                    b.Property<int>("postKey");
+
+                    b.HasKey("key");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("Board.Data.Graduate", b =>
                 {
                     b.Property<int>("key")
@@ -40,9 +54,9 @@ namespace Board.Data.Migrations
 
                     b.Property<string>("History");
 
-                    b.Property<int>("Latitude");
+                    b.Property<double>("Latitude");
 
-                    b.Property<int>("Longitude");
+                    b.Property<double>("Longitude");
 
                     b.Property<string>("Name");
 
@@ -79,6 +93,20 @@ namespace Board.Data.Migrations
                     b.HasIndex("BoardId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Board.Data.PostTag", b =>
+                {
+                    b.Property<int>("key")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("postKey");
+
+                    b.Property<int>("tagKey");
+
+                    b.HasKey("key");
+
+                    b.ToTable("PostTags");
                 });
 
             modelBuilder.Entity("Board.Data.Rank", b =>

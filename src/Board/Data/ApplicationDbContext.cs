@@ -25,6 +25,10 @@ namespace Board.Data
 
         public DbSet<Board> Boards { get; set; }
 
+        public DbSet<PostTag> PostTags { get; set; }
+
+        public DbSet<File> Files { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
