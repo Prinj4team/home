@@ -23,7 +23,23 @@ namespace Board.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.Include(m => m.Tags).ToListAsync());
+            List<Post> posts = _context.Posts.ToList();
+            List<PostTag> pts = _context.PostTags.ToList();
+            List<Tag> tags = _context.Tags.ToList();
+
+            foreach(Post post in posts)
+            {
+                foreach(PostTag pt in pts)
+                {
+                    foreach(Tag tag in tags)
+                    {
+                        if (pt.tagKey == tag.key && pt.postKey == post.key)
+                            post.Tags.Add(tag);
+                    }
+                }
+            }
+
+            return View(posts);
         }
 
         // GET: Posts/Details/5
@@ -76,7 +92,7 @@ namespace Board.Controllers
                 var list = ModelState["Tags"];
                 if (list != null && list.RawValue != null)
                 {
-                    var ar = list.RawValue as string[];
+                    var ar = GetListFromObj(list.RawValue);
                     if (ar != null)
                     {
                         foreach (var tagname in ar)
@@ -85,22 +101,11 @@ namespace Board.Controllers
                             {
                                 if (tagname == tag.TagName && tag.BoardId == post.BoardId)
                                 {
-                                    post.Tags.Add(tag);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var str = list.RawValue as string;
-                        if (str != null)
-                        {
-                            foreach (var tag in allTags)
-                            {
-                                if (str == tag.TagName && tag.BoardId == post.BoardId)
-                                {
-                                    post.Tags.Add(tag);
+                                    //post.Tags.Add(tag);
+                                    PostTag pt = new PostTag();
+                                    pt.postKey = post.key;
+                                    pt.tagKey = tag.key;
+                                    _context.Add(pt);
                                     break;
                                 }
                             }
@@ -123,6 +128,13 @@ namespace Board.Controllers
                 return NotFound();
             }
 
+            List<SelectListItem> tags = new List<SelectListItem>();
+            foreach (var c in _context.Tags.ToList())
+            {
+                tags.Add(new SelectListItem { Value = c.TagName, Text = c.TagName });
+            }
+            ViewBag.tags = tags;
+
             var post = await _context.Posts.SingleOrDefaultAsync(m => m.key == id);
             if (post == null)
             {
@@ -136,7 +148,7 @@ namespace Board.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("key,BoardId,DateBegin,DateEnd,HeaderText,Important,Text")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("key,BoardId,DateBegin,DateEnd,HeaderText,Important,Text,Tags")] Post post)
         {
             if (id != post.key)
             {
@@ -147,6 +159,41 @@ namespace Board.Controllers
             {
                 try
                 {
+                    List<PostTag> pts = _context.PostTags.ToList();
+
+                    foreach(PostTag pt in pts)
+                    {
+                        if(pt.postKey == post.key)
+                        {
+                            _context.Remove(pt);
+                        }
+                    }
+
+                    List<Tag> allTags = _context.Tags.ToListAsync().Result;
+                    var list = ModelState["Tags"];
+                    if (list != null && list.RawValue != null)
+                    {
+                        var ar = GetListFromObj(list.RawValue);
+                        if (ar != null)
+                        {
+                            foreach (var tagname in ar)
+                            {
+                                foreach (var tag in allTags)
+                                {
+                                    if (tagname == tag.TagName && tag.BoardId == post.BoardId)
+                                    {
+                                        //post.Tags.Add(tag);
+                                        PostTag pt = new PostTag();
+                                        pt.postKey = post.key;
+                                        pt.tagKey = tag.key;
+                                        _context.Add(pt);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
@@ -197,6 +244,24 @@ namespace Board.Controllers
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.key == id);
+        }
+
+        private List<string> GetListFromObj(object obj)
+        {
+            var list = obj as string[];
+            if (list != null)
+                return list.ToList<string>();
+            else
+            {
+                var str = obj as string;
+                if (str != null)
+                {
+                    List<string> strs = new List<string>();
+                    strs.Add(str);
+                    return strs;
+                }
+                else return null;
+            }
         }
     }
 }

@@ -21,6 +21,34 @@ namespace Board.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Files",
+                columns: table => new
+                {
+                    key = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    URL = table.Column<string>(nullable: true),
+                    postKey = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Files", x => x.key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostTags",
+                columns: table => new
+                {
+                    key = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    postKey = table.Column<int>(nullable: false),
+                    tagKey = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostTags", x => x.key);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Graduates",
                 columns: table => new
                 {
@@ -30,8 +58,8 @@ namespace Board.Data.Migrations
                     FinishDate = table.Column<DateTime>(nullable: false),
                     Firm = table.Column<string>(nullable: true),
                     History = table.Column<string>(nullable: true),
-                    Latitude = table.Column<int>(nullable: false),
-                    Longitude = table.Column<int>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Town = table.Column<string>(nullable: true)
                 },
@@ -50,8 +78,7 @@ namespace Board.Data.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    key = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    key = table.Column<int>(nullable: false),
                     BoardId = table.Column<string>(nullable: false),
                     DateBegin = table.Column<DateTime>(nullable: false),
                     DateEnd = table.Column<DateTime>(nullable: false),
@@ -137,7 +164,13 @@ namespace Board.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Files");
+
+            migrationBuilder.DropTable(
                 name: "Graduates");
+
+            migrationBuilder.DropTable(
+                name: "PostTags");
 
             migrationBuilder.DropTable(
                 name: "Ranks");
