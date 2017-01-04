@@ -19,7 +19,7 @@
         padding: 4px 8px;
     }
 </style>
-    <a asp-action="Create" class="btn btn-default">Создать объявление</a>
+    @*<a asp-action="Create" class="btn btn-default">Создать объявление</a>*@
 <div class="for_board">
     <div class="row">
         @foreach (var item in Model)
@@ -45,8 +45,8 @@
                             @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
                             <br /><a asp-action="Details" asp-route-id="@item.key" class="btn btn-warning btn-lg for_buttons">Читать объявление</a>
                             <br />
-                            <a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
-                            <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>
+                            @*<a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
+                            <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>*@
                         </div>
                     </div>
                 </div>
@@ -87,8 +87,8 @@
                             @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
                             <br /><a asp-action="Details" asp-route-id="@item.key" class="btn btn-primary btn-lg for_buttons">Читать объявление</a>
                             <br />
-                            <a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
-                            <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>
+                            @*<a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
+                            <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>*@
                         </div>
                     </div>
                 </div>
