@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Board.Data;
 using Board.Models;
 using Board.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace Board
 {
@@ -92,6 +93,88 @@ namespace Board
                     name: "default",
                     template: "{controller=Posts}/{action=Index}/{id?}");
             });
+
+            // Создаем Service Scope для инициализации всех сервисов
+
+            using (var serviceScope = app.ApplicationServices
+
+            .GetRequiredService<IServiceScopeFactory>()
+
+            .CreateScope())
+
+            {
+
+                // Получаем экземпляр ApplcationDbContext из ServiceProvider-а
+
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                // Применяем непримененные миграции
+
+                context.Database.Migrate();
+
+                // Получаем RoleManager
+
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>
+
+                ();
+
+                // Проверяем, есть ли роль Admins. Если нет - добавляем.
+
+                var admins = roleManager.FindByNameAsync("Admins").Result;
+
+                if (admins == null)
+
+                {
+
+                    var roleResult = roleManager.CreateAsync(new IdentityRole("Admins")).Result;
+
+                }
+
+                var boards = roleManager.FindByNameAsync("Boards").Result;
+
+                if (boards == null)
+
+                {
+
+                    var roleResult = roleManager.CreateAsync(new IdentityRole("Boards")).Result;
+
+                }
+
+                // Получаем UserManager
+
+                var userManager =
+
+                serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+                // Проверяем, есть ли пользователь
+
+                var admin = userManager.FindByNameAsync("admin@admin.com").Result;
+
+                if (admin == null)
+
+                {
+
+                    // Если нет - создаем
+
+                    var userResult = userManager.CreateAsync(new ApplicationUser
+
+                    {
+
+                        UserName = "admin@admin.com",
+
+                        Email = "admin@admin.com"
+
+                    }, "Admin123!").Result;
+
+                    admin = userManager.FindByNameAsync("admin@admin.com").Result;
+
+                    // И добавляем ему роль Admins
+
+                    userManager.AddToRoleAsync(admin, "Admins").Wait();
+
+                }
+
+            }
         }
     }
 }
