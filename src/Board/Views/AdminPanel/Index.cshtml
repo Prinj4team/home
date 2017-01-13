@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Board.Data.Post>
+@{
+    ViewData["Title"] = "Админ панель";
+}<br /><br />
+<div class="row">
+    <div class="col-md-2"><a asp-controller="Boards" asp-action="Index" class="btn btn-default btn-block">Типы досок</a></div>
+    <div class="col-md-10"><a asp-controller="Boards" asp-action="Create" class="btn btn-default">Создать</a></div>
+    <div class="col-md-2"><a asp-controller="Tags" asp-action="Index" class="btn btn-default btn-block">Тэги</a></div>
+    <div class="col-md-10"><a asp-controller="Tags" asp-action="Create" class="btn btn-default">Создать</a></div>
+    <div class="col-md-2"><a asp-controller="Posts" asp-action="Index" class="btn btn-default btn-block">Объявления</a></div>
+    <div class="col-md-10"><a asp-controller="Posts" asp-action="Create" class="btn btn-default">Создать</a></div>
+    <div class="col-md-2"><a asp-controller="Graduates" asp-action="Index" class="btn btn-default btn-block">Выпускники</a></div>
+    <div class="col-md-10"><a asp-controller="Graduates" asp-action="Create" class="btn btn-default">Создать</a></div>
+</div>
