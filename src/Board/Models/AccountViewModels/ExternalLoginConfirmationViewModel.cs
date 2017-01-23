@@ -9,7 +9,7 @@ namespace Board.Models.AccountViewModels
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [EmailAddress]
+       // [EmailAddress]
         public string Email { get; set; }
     }
 }

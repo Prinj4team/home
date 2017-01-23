@@ -3,6 +3,10 @@
     ViewData["Title"] = "Админ панель";
 }<br /><br />
 <div class="row">
+    @if (User.IsInRole("Admins"))
+    {
+    <div class="col-md-3"><a class="btn btn-default btn-block" href="@Url.Action("", "", null, "http")Account/Register">Зарегистировать доску</a></div>
+    <div class="col-md-9">@await Html.PartialAsync("_LoginPartial")</div>
     <div class="col-md-2"><a asp-controller="Boards" asp-action="Index" class="btn btn-default btn-block">Типы досок</a></div>
     <div class="col-md-10"><a asp-controller="Boards" asp-action="Create" class="btn btn-default">Создать</a></div>
     <div class="col-md-2"><a asp-controller="Tags" asp-action="Index" class="btn btn-default btn-block">Тэги</a></div>
@@ -11,4 +15,5 @@
     <div class="col-md-10"><a asp-controller="Posts" asp-action="Create" class="btn btn-default">Создать</a></div>
     <div class="col-md-2"><a asp-controller="Graduates" asp-action="Index" class="btn btn-default btn-block">Выпускники</a></div>
     <div class="col-md-10"><a asp-controller="Graduates" asp-action="Create" class="btn btn-default">Создать</a></div>
+    }
 </div>

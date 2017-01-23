@@ -72,7 +72,7 @@ namespace Board.Controllers
             List<SelectListItem> tags = new List<SelectListItem>();
             foreach (var c in _context.Tags.ToList())
             {
-                tags.Add(new SelectListItem { Value = c.TagName, Text = c.TagName });
+                tags.Add(new SelectListItem { Value = c.TagName, Text = c.TagName + " " + c.BoardId });
             }
             ViewBag.tags = tags;
 

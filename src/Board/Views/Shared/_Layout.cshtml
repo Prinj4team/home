@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Board</title>
+
     
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -60,14 +61,17 @@
     </ul>
                 @*<a asp-controller="Boards" asp-action="Index" class="btn btn-primary mar-top">Типы досок</a>
                 <a asp-controller="Tags" asp-action="Index" class="btn btn-primary mar-top">Тэги</a><br />*@
-                <a asp-controller="AdminPanel" asp-action="Index" class="btn btn-primary mar-top">Админпанель</a>
+               
 </div>
         </div>
     </div>
     <div class="container body-content">
     <img src="~/images/logo.jpg" height="70" class="title" />
     <img src="~/images/title.jpg" height="70" />
-        @await Html.PartialAsync("_LoginPartial")
+        <p></p>
+        @if (User.IsInRole("Admins"))
+        {                <a asp-controller="AdminPanel" asp-action="Index" class="btn btn-primary mar-top">Админпанель</a>}
+       @if(!User.Identity.IsAuthenticated) { <a href="@Url.Action("", "", null, "http")Account/Login">Login!!!</a>}
         <p></p>
         @RenderBody()
         <p></p>

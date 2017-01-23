@@ -9,7 +9,7 @@ namespace Board.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+       // [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

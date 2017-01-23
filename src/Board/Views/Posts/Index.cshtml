@@ -18,12 +18,14 @@
         font-size: 95%;
         padding: 4px 8px;
     }
-</style>
-    <a asp-action="Create" class="btn btn-default">Создать объявление</a>
+</style>@if (User.IsInRole("Admins"))
+{    <a asp-action="Create" class="btn btn-default">Создать объявление</a>}
 <div class="for_board">
     <div class="row">
         @foreach (var item in Model)
+        {@if (item.BoardId == User.Identity.Name || User.IsInRole("Admins"))
         {
+
             @if (item.Important == true)
             {
 
@@ -32,7 +34,7 @@
                     <div class="panel panel-danger">
                         <div class="panel-heading">
                             @foreach (var tag in item.Tags)
-                    {
+                            {
                                 <span class="forr">
                                     @Html.DisplayFor(modelItem => tag.TagName) <span> </span>
                                 </span>
@@ -44,13 +46,17 @@
                             <span> - </span>
                             @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
                             <br /><a asp-action="Details" asp-route-id="@item.key" class="btn btn-warning btn-lg for_buttons">Читать объявление</a>
-                            <br />
+                            <br />@if (User.IsInRole("Admins"))
+                            {
                             <a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
                             <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>
+                            }
                         </div>
                     </div>
                 </div>
-            }
+                    } 
+        }
+
         }
     </div>
     @*@Html.DisplayNameFor(model => model.BoardId)
@@ -67,7 +73,8 @@
     <br />
     <div class="row">
         @foreach (var item in Model)
-        {
+        {@if (item.BoardId == User.Identity.Name || User.IsInRole("Admins"))
+{
             @if (item.Important == false)
             {
                 <div class="col-sm-2">
@@ -86,13 +93,16 @@
                             <span> - </span>
                             @Html.DisplayFor(modelItem => item.DateEnd.Day).@Html.DisplayFor(modelItem => item.DateEnd.Month).@Html.DisplayFor(modelItem => item.DateEnd.Year)
                             <br /><a asp-action="Details" asp-route-id="@item.key" class="btn btn-primary btn-lg for_buttons">Читать объявление</a>
-                            <br />
+                            <br />@if (User.IsInRole("Admins"))
+                            {
                             <a asp-action="Edit" asp-route-id="@item.key">Редактировать</a>
                             <a asp-action="Delete" asp-route-id="@item.key">Удалить</a>
+                            }
                         </div>
                     </div>
                 </div>
             }
-        }
+    }
+}
     </div>
 </div>
